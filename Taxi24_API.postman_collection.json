@@ -1,0 +1,521 @@
+{
+	"info": {
+		"_postman_id": "taxi24-api-collection",
+		"name": "Taxi24 API",
+		"description": "Complete API collection for Taxi24 - A taxi service management system",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Root",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						""
+					]
+				},
+				"description": "Welcome endpoint"
+			}
+		},
+		{
+			"name": "Drivers",
+			"item": [
+				{
+					"name": "Get All Drivers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/drivers",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"drivers"
+							]
+						},
+						"description": "Get a list of all drivers"
+					}
+				},
+				{
+					"name": "Get Available Drivers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/drivers/available",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"drivers",
+								"available"
+							]
+						},
+						"description": "Get a list of all available drivers"
+					}
+				},
+				{
+					"name": "Get Available Drivers Nearby",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/drivers/available/nearby?latitude=-12.0464&longitude=-77.0428&radius=3",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"drivers",
+								"available",
+								"nearby"
+							],
+							"query": [
+								{
+									"key": "latitude",
+									"value": "-12.0464",
+									"description": "Latitude of the location"
+								},
+								{
+									"key": "longitude",
+									"value": "-77.0428",
+									"description": "Longitude of the location"
+								},
+								{
+									"key": "radius",
+									"value": "3",
+									"description": "Radius in kilometers (default: 3)"
+								}
+							]
+						},
+						"description": "Get available drivers within 3km radius of a specific location"
+					}
+				},
+				{
+					"name": "Get Driver by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/drivers/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"drivers",
+								"1"
+							]
+						},
+						"description": "Get a specific driver by ID"
+					}
+				}
+			],
+			"description": "Driver management endpoints"
+		},
+		{
+			"name": "Passengers",
+			"item": [
+				{
+					"name": "Get All Passengers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/passengers",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"passengers"
+							]
+						},
+						"description": "Get a list of all passengers"
+					}
+				},
+				{
+					"name": "Get Passenger by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/passengers/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"passengers",
+								"1"
+							]
+						},
+						"description": "Get a specific passenger by ID"
+					}
+				},
+				{
+					"name": "Get Nearby Drivers for Passenger",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"latitude\": -12.0464,\n    \"longitude\": -77.0428\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/passengers/1/nearby-drivers",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"passengers",
+								"1",
+								"nearby-drivers"
+							]
+						},
+						"description": "Get the 3 closest drivers to a passenger's pickup location"
+					}
+				}
+			],
+			"description": "Passenger management endpoints"
+		},
+		{
+			"name": "Trips",
+			"item": [
+				{
+					"name": "Get Active Trips",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/trips/active",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"trips",
+								"active"
+							]
+						},
+						"description": "Get a list of all active trips"
+					}
+				},
+				{
+					"name": "Create Trip Request",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"passenger_id\": 1,\n    \"pickup_location\": {\n        \"latitude\": -12.0464,\n        \"longitude\": -77.0428\n    },\n    \"destination_location\": {\n        \"latitude\": -12.0500,\n        \"longitude\": -77.0450\n    }\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/trips",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"trips"
+							]
+						},
+						"description": "Create a new trip request (automatically assigns closest available driver)"
+					}
+				},
+				{
+					"name": "Create Trip Request (No Destination)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"passenger_id\": 2,\n    \"pickup_location\": {\n        \"latitude\": -12.0520,\n        \"longitude\": -77.0480\n    }\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/trips",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"trips"
+							]
+						},
+						"description": "Create a trip request without destination (destination will be set when completing the trip)"
+					}
+				},
+				{
+					"name": "Complete Trip",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"destination_location\": {\n        \"latitude\": -12.0600,\n        \"longitude\": -77.0500\n    },\n    \"fare\": \"25.50\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/trips/1/complete",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"trips",
+								"1",
+								"complete"
+							]
+						},
+						"description": "Complete a trip by providing destination and fare"
+					}
+				}
+			],
+			"description": "Trip management endpoints"
+		},
+		{
+			"name": "Invoices",
+			"item": [
+				{
+					"name": "Generate Invoice for Trip",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/trips/1/invoice",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"trips",
+								"1",
+								"invoice"
+							]
+						},
+						"description": "Generate an invoice for a completed trip (includes 18% tax)"
+					}
+				}
+			],
+			"description": "Invoice management endpoints"
+		},
+		{
+			"name": "Complete Workflow Example",
+			"item": [
+				{
+					"name": "1. Get Available Drivers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/drivers/available",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"drivers",
+								"available"
+							]
+						},
+						"description": "Step 1: Check available drivers"
+					}
+				},
+				{
+					"name": "2. Get Passengers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/passengers",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"passengers"
+							]
+						},
+						"description": "Step 2: Get list of passengers"
+					}
+				},
+				{
+					"name": "3. Create Trip",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"passenger_id\": 1,\n    \"pickup_location\": {\n        \"latitude\": -12.0464,\n        \"longitude\": -77.0428\n    },\n    \"destination_location\": {\n        \"latitude\": -12.0700,\n        \"longitude\": -77.0600\n    }\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/trips",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"trips"
+							]
+						},
+						"description": "Step 3: Create a trip (save trip ID for next steps)"
+					}
+				},
+				{
+					"name": "4. Check Active Trips",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/trips/active",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"trips",
+								"active"
+							]
+						},
+						"description": "Step 4: Verify trip is active"
+					}
+				},
+				{
+					"name": "5. Complete Trip",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"destination_location\": {\n        \"latitude\": -12.0700,\n        \"longitude\": -77.0600\n    },\n    \"fare\": \"35.00\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/trips/{{trip_id}}/complete",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"trips",
+								"{{trip_id}}",
+								"complete"
+							]
+						},
+						"description": "Step 5: Complete the trip (use trip ID from step 3)"
+					}
+				},
+				{
+					"name": "6. Generate Invoice",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/trips/{{trip_id}}/invoice",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"trips",
+								"{{trip_id}}",
+								"invoice"
+							]
+						},
+						"description": "Step 6: Generate invoice for completed trip"
+					}
+				}
+			],
+			"description": "Complete workflow example from trip creation to invoice generation"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8000",
+			"type": "string"
+		},
+		{
+			"key": "trip_id",
+			"value": "1",
+			"type": "string",
+			"description": "Trip ID for testing (update after creating a trip)"
+		}
+	]
+}
